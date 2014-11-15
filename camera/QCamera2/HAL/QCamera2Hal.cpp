@@ -38,7 +38,7 @@ static hw_module_t camera_common = {
     .author = "Qualcomm Innovation Center Inc",
     .methods = &qcamera::QCamera2Factory::mModuleMethods,
     .dso = NULL,
-    .reserved =  {0},
+    .reserved = {0},
 };
 
 camera_module_t HAL_MODULE_INFO_SYM = {
