@@ -79,4 +79,6 @@ LOCAL_MODULE_TAGS := optional
 
 include $(BUILD_SHARED_LIBRARY)
 
-#include $(LOCAL_PATH)/test/Android.mk
+ifeq ($(TARGET_USES_AOSP),false)
+include $(LOCAL_PATH)/test/Android.mk
+endif
