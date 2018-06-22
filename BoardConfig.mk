@@ -59,6 +59,7 @@ AUDIO_FEATURE_ENABLED_ANC_HEADSET := true
 AUDIO_FEATURE_ENABLED_ACDB_LICENSE := true
 AUDIO_FEATURE_ENABLED_EXTN_FORMATS := true
 AUDIO_FEATURE_ENABLED_KPI_OPTIMIZE := true
+AUDIO_FEATURE_ENABLED_MULTI_VOICE_SESSIONS := true
 BOARD_USES_ALSA_AUDIO := true
 USE_XML_AUDIO_POLICY_CONF := 1
 
@@ -106,8 +107,10 @@ TARGET_HW_DISK_ENCRYPTION := true
 
 # Filesystem
 BOARD_CACHEIMAGE_FILE_SYSTEM_TYPE := ext4
+BOARD_VENDORIMAGE_FILE_SYSTEM_TYPE := ext4
 TARGET_USERIMAGES_USE_EXT4 := true
 TARGET_USERIMAGES_USE_F2FS := true
+TARGET_COPY_OUT_VENDOR := vendor
 TARGET_FS_CONFIG_GEN := $(LOCAL_PATH)/config.fs
 
 # FM
@@ -126,9 +129,6 @@ TARGET_RECOVERY_DEVICE_MODULES := libinit_ido
 # Keymaster
 TARGET_KEYMASTER_WAIT_FOR_QSEE := true
 
-# Lights
-TARGET_PROVIDES_LIBLIGHT := true
-
 # Malloc
 MALLOC_SVELTE := true
 
@@ -139,6 +139,7 @@ BOARD_CACHEIMAGE_PARTITION_SIZE := 274726912
 BOARD_PERSISTIMAGE_PARTITION_SIZE := 33554432
 BOARD_RECOVERYIMAGE_PARTITION_SIZE := 33554432
 BOARD_SYSTEMIMAGE_PARTITION_SIZE := 2415919104
+BOARD_VENDORIMAGE_PARTITION_SIZE := 536870912
 BOARD_USERDATAIMAGE_PARTITION_SIZE := 12066978816 # (12066995200-16384)
 BOARD_FLASH_BLOCK_SIZE := 131072 # blockdev --getbsz /dev/block/mmcblk0p19
 
@@ -146,7 +147,7 @@ BOARD_FLASH_BLOCK_SIZE := 131072 # blockdev --getbsz /dev/block/mmcblk0p19
 TARGET_POWERHAL_VARIANT := qcom
 
 # Properties
-TARGET_SYSTEM_PROP := $(LOCAL_PATH)/system.prop
+TARGET_VENDOR_PROP += $(LOCAL_PATH)/system.prop
 
 # Qualcomm
 BOARD_USES_QCOM_HARDWARE := true
@@ -170,11 +171,17 @@ include device/qcom/sepolicy/legacy-sepolicy.mk
 
 # Shim
 TARGET_LD_SHIM_LIBS := \
-    /system/bin/mm-qcamera-daemon|libshim_camera.so \
-    /system/vendor/lib/libmmcamera2_imglib_modules.so|libshim_camera.so \
-    /system/vendor/lib/libmmcamera2_stats_modules.so|libshim_camera.so \
-    /system/vendor/lib/libmmqjpeg_codec.so|libboringssl-compat.so \
-    /system/vendor/lib64/libizat_core.so|libshims_get_process_name.so
+    /vendor/bin/mm-qcamera-daemon|libshim_camera.so \
+    /vendor/lib/libflp.so|libshims_flp.so \
+    /vendor/lib/libmmcamera2_imglib_modules.so|libshim_camera.so \
+    /vendor/lib/libmmcamera2_stats_modules.so|libshim_camera.so \
+    /vendor/lib/libmmqjpeg_codec.so|libboringssl-compat.so \
+    /vendor/lib64/libflp.so|libshims_flp.so \
+    /vendor/lib64/libizat_core.so|libshims_get_process_name.so
+
+# Treble
+PRODUCT_VENDOR_MOVE_ENABLED := true
+BOARD_PROPERTY_OVERRIDES_SPLIT_ENABLED := true
 
 # Wifi
 BOARD_HAS_QCOM_WLAN              := true
