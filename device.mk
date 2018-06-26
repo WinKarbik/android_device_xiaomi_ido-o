@@ -147,6 +147,7 @@ PRODUCT_PACKAGES += \
     hwcomposer.msm8916 \
     memtrack.msm8916 \
     liboverlay \
+    libstagefright_foundation.vendor \
     libgenlock
 
 # Doze mode
