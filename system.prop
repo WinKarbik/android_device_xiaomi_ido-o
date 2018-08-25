@@ -106,5 +106,8 @@ ro.telephony.default_network=9,9
 # Time
 persist.timed.enable=true
 
+# Vendor security patch level
+ro.lineage.build.vendor_security_patch=2017-01-01
+
 # WIFI
 wifi.interface=wlan0
