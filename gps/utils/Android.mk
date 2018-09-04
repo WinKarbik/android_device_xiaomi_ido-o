@@ -59,9 +59,8 @@ LOCAL_COPY_HEADERS:= \
    loc_misc_utils.h
 
 LOCAL_MODULE := libgps.utils
-
 LOCAL_MODULE_TAGS := optional
-
+LOCAL_VENDOR_MODULE := true
 LOCAL_PRELINK_MODULE := false
 
 include $(BUILD_SHARED_LIBRARY)
